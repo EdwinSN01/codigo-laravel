@@ -6,19 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+    /**ñ
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->bigIncrements('id');//aqui va ingrementando 
+            $table->string('name');//varchar
+            $table->string('fono');
+            $table->string('direccion',50);
+            $table->string('email',30)->unique();
+            $table->timestamp('email_verified_at')->nullable();//timestamp se usa para guardar fechas
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->rememberToken();//crea una columna cada vez que el usuario ingresa 
+            $table->timestamps();//almacena fecha y hora 
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
