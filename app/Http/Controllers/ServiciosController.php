@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Servicio;
 class ServiciosController extends Controller
 {
-    public function servicios(){
-    $servicios =[ /*
-        ['titulo' => 'Servicios 01'],
-        ['titulo' => 'Servicios 04'],
-        ['titulo' => 'Servicios 05'],
-        ['titulo' => 'Servicios 06'], */
+   /**
+    * @param \Iluminate\Http\Request $request
+     *@return \Iluminate\Http\Response
+    */
     
-    ];
-    return view('servicios', compact('servicio'));
-}
+    public function index()
+    {
+      $servicios = DB::table('servicios')->get();
+      //$servicios = Servicio::get();
+     
+      return view('servicios',compact('servicios'));
+    }
 }

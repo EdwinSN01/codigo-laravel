@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 class Servicios2Controller extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    * @param \Iluminate\Http\Request $request
+     *@return \Iluminate\Http\Response
+    */
+   public function index()
     {
-        //
-        $servicios=[
-            ['titulo'=>'Servicio 01'],
-            ['titulo'=>'Servicio 02'],
-            ['titulo'=>'Servicio 03'],
-            ['titulo'=>'Servicio 04'],
-            ['titulo'=>'Servicio 05'],
-        ];
+
+        $servicios = [
+            ['titulo' => 'Mantenimiento'],
+            ['titulo' => 'Afinamiento'],
+            ['titulo' => 'Cambio de Aceite'],
+            ['titulo' => 'Lavado tipo salón'], 
+        ]; 
         return view('servicios',compact('servicios'));
 }
 }
