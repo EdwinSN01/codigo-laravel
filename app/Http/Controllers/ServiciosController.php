@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Servicio;
 use PhpParser\Node\Stmt\Return_;
 use App\Http\Requests\CreateServicioRequest;
+use GuzzleHttp\Promise\Create;
 
 class ServiciosController extends Controller
 {
@@ -50,15 +51,40 @@ class ServiciosController extends Controller
         Servicio::create([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
+            
         ]);
 
        // Redirigir a una página de éxito o de lista de servicios
        return redirect()->route('servicios.index')->with('success', 'Servicio creado exitosamente.');
     }
+   
+    public function edit(Servicio $id)
+    {
+        return view('edit',[
+          'servicio' =>$id
+        ]);
+    }
 
+    public function update(Servicio $id)
+    {
+      $id->update([
+        'titulo' => request('titulo'),
+        'descripcion' => request('descripcion')
+      ]);
 
+        return redirect()->route('servicios.index')->with('success', 'Servicio actualizado correctamente.');
+    }
+
+    public function destroy(Servicio $servicio){
+      $servicio->delete();
+
+      return redirect()->route('servicios.index');
+    }
+}
+  
+  
     
-  }
+  
     
 
   

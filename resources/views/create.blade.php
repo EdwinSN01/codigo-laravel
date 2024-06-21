@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <h1>Crear nuevo servicio</h1>
-
+@include('partials.validation-errors')
     <form action="{{ route('servicios.store') }}" method="POST">
         @csrf
         <div class="form-group">

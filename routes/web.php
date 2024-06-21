@@ -18,6 +18,11 @@ Route::view('contacto','contacto')->name('contacto');
  //Route::get('servicios', 'ServiciosController@index')->name('servicios.index');
 // Route::get('servicios/crear', 'ServiciosController@create')->name('servicios.create');
 Route::get('/servicios/crear', [ServiciosController::class, 'create'])->name('servicios.create');
- Route::get('servicios/{id}', 'ServiciosController@show')->name('servicios.show');
+
+Route::get('servicios/{id}/editar', [ServiciosController::class, 'edit'])->name('servicios.edit');
+Route::patch('servicios/{id}', [ServiciosController::class, 'update'])->name('servicios.update');
+Route::delete('servicios/{servicio}', [ServiciosController::class, 'destroy'])->name('servicios.destroy');
+
  Route::post('/servicios', [ServiciosController::class, 'store'])->name('servicios.store');
  Route::get('/servicios', [ServiciosController::class, 'index'])->name('servicios.index');
+ Route::get('/servicios/{id}', [ServiciosController::class, 'show'])->name('servicios.show');

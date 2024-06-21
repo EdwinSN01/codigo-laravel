@@ -4,6 +4,16 @@
 
 @section('content')
 <tr>
+    <td colspan="4">{{ $servicio->titulo }}
+    <a href="{{ route('servicios.edit',$servicio) }}">Editar</a>
+    </td> 
+    <td colspan="2">
+    <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" style="display:inline;">
+        @csrf @method('DELETE')
+        <button>Eliminar</button>
+    </form>
+</tr>
+<tr>
     <td colspan="4">{{ $servicio->titulo }}</td>
 </tr>
 <tr>
