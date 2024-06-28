@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiciosController; // Agrega este use statement
 use App\Http\Controllers\Servicios2Controller; // Agrega este use statement
@@ -10,7 +11,11 @@ Route::get('servicios',[ServiciosController::class, 'index'])->name('servicios')
 //Route::get('/servicios', [ServiciosController::class, 'index'])->name('servicios.index');
 
 //Route::get('/servicios/{id}', [ServiciosController::class, 'show'])->name('servicios.show');
-Route::view('contacto','contacto')->name('contacto');
+Route::view('contactos','contactos')->name('contactos');
+//Route::get('/contactos', [ContactosController::class, 'index'])->name('contactos.index');
+//Route::get('/contactos/crear', [ContactosController::class, 'create'])->name('contactos.create');
+//Route::get('/contactos/{id}', [ContactosController::class, 'show'])->name('contactos.show');
+Route::post('/contactos', [ContactosController::class, 'store'])->name('contactos.store');
 //Route::get('/servicios/create', [ServiciosController::class, 'create'])->name('servicios.create');
 //Route::get('/servicios',[ServiciosController::class,'store'])->name('servicios.store');
 //Route::get('/servicios', 'ServiciosController@store')->name('servicios.store');

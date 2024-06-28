@@ -22,4 +22,6 @@
 <tr>
     <td colspan="4">{{ $servicio->created_at->diffForHumans() }}</td>
 </tr>
+
+
 @endsection
