@@ -11,6 +11,14 @@ use GuzzleHttp\Promise\Create;
 
 class ServiciosController extends Controller
 {
+  public function __construct(){
+    
+   // $this->middleware('auth')->only('create','edit');
+    //$this->middleware('auth')->except('create','show');
+  }
+  
+    
+  
    /**
     * @param \Iluminate\Http\Request $request
      *@return \Iluminate\Http\Response
@@ -80,6 +88,7 @@ class ServiciosController extends Controller
 
       return redirect()->route('servicios.index');
     }
+
 }
   
   

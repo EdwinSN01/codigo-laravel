@@ -24,7 +24,9 @@ class ContactosController extends Controller
 
         // Enviar el correo
         Mail::to('serinniquin@gmail.com')->send(new MensajeRecibido($mensaje));
-          return new MensajeRecibido($mensaje);                                
+          return new MensajeRecibido($mensaje);
+          //SI USAS BACK()
+          return back()->with('estado','Gracias por ponerte en contacto, te responderemos a la brevedad posible');                                
 
         // Retornar una respuesta
         return 'Mensaje enviado correctamente';
