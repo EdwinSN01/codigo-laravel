@@ -19,7 +19,7 @@ Route::post('/contactos', [ContactosController::class, 'store'])->name('contacto
 //Route::get('/servicios/create', 'ServicioController@create')->name('servicios.create');
  //Route::get('servicios', 'ServiciosController@index')->name('servicios.index');
 // Route::get('servicios/crear', 'ServiciosController@create')->name('servicios.create');
-Route::resource('servicios', ServiciosController::class)->names('servicios')->middleware('auth');
+//Route::resource('servicios', ServiciosController::class)->name('servicios')->middleware('auth');
 
 Route::get('/servicios/crear', [ServiciosController::class, 'create'])->name('servicios.create');
 Route::get('servicios/{id}/editar', [ServiciosController::class, 'edit'])->name('servicios.edit');
@@ -30,6 +30,11 @@ Route::delete('servicios/{servicio}', [ServiciosController::class, 'destroy'])->
  Route::get('/servicios', [ServiciosController::class, 'index'])->name('servicios.index');
  Route::get('/servicios/{id}', [ServiciosController::class, 'show'])->name('servicios.show');
 
-Auth::routes();
+ Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+ 
+ Auth::routes();
+ 
+ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+ 

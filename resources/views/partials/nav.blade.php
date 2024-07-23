@@ -8,13 +8,13 @@
     <th><a href="{{ route('login') }}">Login</a></th>
     @else
     <th>
-        <a href="#" onclick="event.preventDefual();
+        <a href="#" onclick="event.preventDefault();
            document.getElementById('logout-form').submit();">Cerrar Sesión</a>
     </th>
     @endguest
     </tr>
 </thead>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: nome;">
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
 
