@@ -4,6 +4,11 @@
 
 @section('content')
 <div class="container">
+    <tr>
+        @auth
+            <img src="/storage/{{ $servicio->image }}" alt="{{ $servicio->titulo }}" width="300" height="100">
+        @endauth
+    </tr>
     <h1>Editar servicio</h1>
 @include('partials.validation-errors')
     <form action="{{ route('servicios.update',$servicio) }}" method="POST" enctype="multipart/form-data">

@@ -8,6 +8,8 @@ use App\Models\Servicio;
 use PhpParser\Node\Stmt\Return_;
 use App\Http\Requests\CreateServicioRequest;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Contracts\Cache\Store;
+use Illuminate\Support\Facades\Storage;
 
 class ServiciosController extends Controller
 {
@@ -89,7 +91,9 @@ class ServiciosController extends Controller
         //'titulo' => request('titulo'),
         //'descripcion' => request('descripcion')
       //]);
+      
       if($request->hasFile('image')){
+        Storage::delete($servicio->image); //le pasamos la ubicacion de la imagen
         $servicio->fill( $request->validated() );
         $servicio->image = $request->file('image')->store('images');
         $servicio->save();
@@ -101,9 +105,10 @@ class ServiciosController extends Controller
     }
 
     public function destroy(Servicio $servicio){
+      Storage::delete($servicio->image); //le pasamos la ubicacion de la imagen 
       $servicio->delete();
 
-      return redirect()->route('servicios.index');
+      return redirect()->route('servicios.index')->with('estado', 'El servicio fue eliminado correctamente');
     }
 
   
