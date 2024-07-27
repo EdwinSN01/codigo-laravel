@@ -28,6 +28,11 @@
         <tbody>
             @forelse($servicios as $servicio)
                 <tr>
+                    <tr> 
+                        @if($servicio->image)
+                        <img src="/storage/{{ $servicio->image }}" alt="{{ $servicio->titulo }}"
+                        width="50" height="50">
+                        @endif
                     <td>
                         <a href="{{ route('servicios.show', $servicio) }}">{{ $servicio->titulo }}</a>
                     </td>

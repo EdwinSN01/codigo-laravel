@@ -47,14 +47,22 @@ class ServiciosController extends Controller
 
     }
 
-    public function store(Request $request)
+    //public function store(Request $request)
+    public function store(CreateServicioRequest $request)
+
     {
+          $servicio = new Servicio($request->validated());
+          $servicio-> image = $request->file('image')->store('images');
+          $servicio->save();
+          return redirect()->route('servicios.index')->with('estado','El servicio fue creado correctamente');
         // Validar los datos del formulario
         $validatedData = $request->validate([
             'titulo' => 'required|string|max:255',
-            'descripcion' => 'required|string|max:1000',
-        ]);
-
+           'descripcion' => 'required|string|max:1000',
+       ]);
+      
+        
+      
         // Crear el nuevo servicio
         Servicio::create([
             'titulo' => $validatedData['titulo'],
@@ -73,12 +81,21 @@ class ServiciosController extends Controller
         ]);
     }
 
-    public function update(Servicio $id)
+    //public function update(Servicio $id)
+    public function update(Servicio $servicio, CreateServicioRequest $request)
     {
-      $id->update([
-        'titulo' => request('titulo'),
-        'descripcion' => request('descripcion')
-      ]);
+      //$servicio->update( array_filter($request->validate()) );
+      //$id->update([
+        //'titulo' => request('titulo'),
+        //'descripcion' => request('descripcion')
+      //]);
+      if($request->hasFile('image')){
+        $servicio->fill( $request->validated() );
+        $servicio->image = $request->file('image')->store('images');
+        $servicio->save();
+      } else{
+        $servicio->update( array_filter($request->validated()) );
+      }
 
         return redirect()->route('servicios.index')->with('success', 'Servicio actualizado correctamente.');
     }
@@ -89,6 +106,7 @@ class ServiciosController extends Controller
       return redirect()->route('servicios.index');
     }
 
+  
 }
   
   

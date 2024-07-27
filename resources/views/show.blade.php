@@ -1,27 +1,40 @@
 @extends('layouts.master')
 
-@section('title','Servicio | ' . $servicio->titulo)
+@section('title', 'Servicio | ' . $servicio->titulo)
 
 @section('content')
-<tr>
-    <td colspan="4">{{ $servicio->titulo }}
-    <a href="{{ route('servicios.edit',$servicio) }}">Editar</a>
-    </td> 
-    <td colspan="2">
-    <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" style="display:inline;">
-        @csrf @method('DELETE')
-        <button>Eliminar</button>
-    </form>
-</tr>
-<tr>
-    <td colspan="4">{{ $servicio->titulo }}</td>
-</tr>
-<tr>
-    <td colspan="4">{{ $servicio->descripcion }}</td>
-</tr>
-<tr>
-    <td colspan="4">{{ $servicio->created_at->diffForHumans() }}</td>
-</tr>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <!-- Imagen del Servicio -->
+                @if($servicio->image)
+                    <img src="{{ asset('storage/' . $servicio->image) }}" class="card-img-top" alt="{{ $servicio->titulo }}">
+                @endif
 
+                <div class="card-body">
+                    <!-- Título y Botones -->
+                    <h5 class="card-title">{{ $servicio->titulo }}</h5>
 
+                    <!-- Descripción -->
+                    <p class="card-text">{{ $servicio->descripcion }}</p>
+
+                    <!-- Información adicional -->
+                    <p class="card-text"><small class="text-muted">{{ $servicio->created_at->diffForHumans() }}</small></p>
+
+                    <!-- Botones de acción -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('servicios.edit', $servicio) }}" class="btn btn-warning">Editar</a>
+
+                        <form action="{{ route('servicios.destroy', $servicio) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

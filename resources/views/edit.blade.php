@@ -6,7 +6,7 @@
 <div class="container">
     <h1>Editar servicio</h1>
 @include('partials.validation-errors')
-    <form action="{{ route('servicios.update',$servicio) }}" method="POST">
+    <form action="{{ route('servicios.update',$servicio) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">

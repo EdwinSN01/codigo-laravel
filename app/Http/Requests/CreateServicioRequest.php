@@ -11,7 +11,7 @@ class CreateServicioRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,14 +23,17 @@ class CreateServicioRequest extends FormRequest
     {
         return [
             'titulo' => 'required',
-            'descripcion' => 'required'
+            'descripcion' => 'required',
+            'image' => [ $this->route('servicio') ? 'nullable' : 'required', 'mimes:jpeg,png'],
+            //'image' => ['required', 'mimes:jpeg,png'] // registra solo imagenes jpeg y png
         ];
     }
 
     public function messages(){
         return[
             'titulo.required' => 'Se necesita un Titulo para el servicio',
-            'descripcion.required' => 'Ingresa una descripcion, es necesaria'
+            'descripcion.required' => 'Ingresa una descripcion, es necesaria',
+            'image.required' =>'Debes seleccionar una imagen'
         ];
     }
 }
