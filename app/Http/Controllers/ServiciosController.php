@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ServicioSaved;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Servicio;
@@ -10,6 +11,8 @@ use App\Http\Requests\CreateServicioRequest;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 class ServiciosController extends Controller
 {
@@ -56,6 +59,12 @@ class ServiciosController extends Controller
           $servicio = new Servicio($request->validated());
           $servicio-> image = $request->file('image')->store('images');
           $servicio->save();
+          $image = Image::make(storage::get($servicio->image))
+           ->widen(600)
+           ->limitColors(255)
+           ->encode();
+           Storage::put($servicio->image, (string) $image);
+           ServicioSaved::dispatch($servicio);
           return redirect()->route('servicios.index')->with('estado','El servicio fue creado correctamente');
         // Validar los datos del formulario
         $validatedData = $request->validate([
@@ -97,10 +106,18 @@ class ServiciosController extends Controller
         $servicio->fill( $request->validated() );
         $servicio->image = $request->file('image')->store('images');
         $servicio->save();
-      } else{
+      //} else{
+        //$servicio->update( array_filter($request->validated()) );
+      //}
+      $image = Image::make(storage::get($servicio->image))
+      ->widen(600)
+      ->limitColors(255)
+      ->encode();
+      Storage::put($servicio->image, (string) $image);
+      ServicioSaved::dispatch($servicio);
+       } else{
         $servicio->update( array_filter($request->validated()) );
       }
-
         return redirect()->route('servicios.index')->with('success', 'Servicio actualizado correctamente.');
     }
 

@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <!-- Título y Botones -->
                     <h5 class="card-title">{{ $servicio->titulo }}</h5>
-
+ 
                     <!-- Descripción -->
                     <p class="card-text">{{ $servicio->descripcion }}</p>
 
@@ -38,3 +38,4 @@
     </div>
 </div>
 @endsection
+
