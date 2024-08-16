@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Category;
 
 use App\Events\ServicioSaved;
 use Illuminate\Http\Request;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Servicio;
 use PhpParser\Node\Stmt\Return_;
 use App\Http\Requests\CreateServicioRequest;
+
 use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
@@ -34,6 +36,7 @@ class ServiciosController extends Controller
      // $servicios = DB::table('servicios')->get();
       $servicios = Servicio::get();
       $servicios= Servicio::latest()->paginate(2);
+      return view('servicios',['servicios' => Servicio::with('category')->latest()->paginate()]);
       return view('servicios',compact('servicios'));
     }
 
@@ -48,7 +51,10 @@ class ServiciosController extends Controller
 
     public function create(){
 
-      return view('create');
+      return view('create',[
+        'servicio'=> new Servicio,
+        'categories'=> Category::pluck('name', 'id')
+      ]);
 
     }
 
@@ -88,7 +94,8 @@ class ServiciosController extends Controller
     public function edit(Servicio $id)
     {
         return view('edit',[
-          'servicio' =>$id
+          'servicio' =>$id,
+          'categories'=> Category::pluck('name', 'id')
         ]);
     }
 

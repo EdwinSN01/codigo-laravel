@@ -34,6 +34,12 @@
                         width="50" height="50">
                         @endif
                     <td>
+                        <tr> 
+                            @if($servicio->category_id)
+                            <a href="{{ route('categories.show', $servicio->category) }}" class= "badge badge-secondary">{{ $servicio->category->name }}"
+                            
+                            @endif
+                        <td>
                         <a href="{{ route('servicios.show', $servicio) }}">{{ $servicio->titulo }}</a>
                     </td>
                     <td>
